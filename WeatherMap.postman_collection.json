@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "8cbc25cf-6612-45bc-953c-2cd1b875d424",
+		"name": "WeatherMap",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetWheatherData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5151452-c37e-46fa-bdc5-8e7aedf0a2e9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Confirm longitude is -0.13\", function () {\r",
+							"    pm.expect(jsonData.coord.lon).to.eql(-0.13);\r",
+							"});\r",
+							"pm.test(\"Confirm latitude is 51.51\", function () {\r",
+							"    pm.expect(jsonData.coord.lat).to.eql(51.51);\r",
+							"});\r",
+							"pm.test(\"Confirm city is London\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(\"London\");\r",
+							"});\r",
+							"pm.test(\"Confirm weather forecast is present\", function () {\r",
+							"    pm.expect(pm.response.text(\"message\")).to.include(\"weather\");\r",
+							"});\r",
+							"pm.test(\"Confirm Drizzle is present\", function () {\r",
+							"    pm.expect(jsonData.weather[0].main).to.eql(\"Drizzle\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22",
+					"protocol": "https",
+					"host": [
+						"samples",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"weather"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "London,uk"
+						},
+						{
+							"key": "appid",
+							"value": "b6907d289e10d714a6e88b30761fae22"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
